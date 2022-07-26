@@ -22,17 +22,17 @@ provider "aws" {
 #   }
 # } 
 
-variable "ec2_name" {
-  default = "variable-ec2"
-}
+# variable "ec2_name" {
+#   default = "variable-ec2"
+# }
 
-variable "ec2_type" {
-  default = "t2.micro"
-}
+# variable "ec2_type" {
+#   default = "t2.micro"
+# }
 
-variable "ec2_ami" {
-  default = "ami-0742b4e673072066f"
-}
+# variable "ec2_ami" {
+#   default = "ami-0742b4e673072066f"
+# }
 resource "aws_instance" "ec2-variable" {
   ami = var.ec2_ami
   instance_type = var.ec2_type
@@ -52,7 +52,7 @@ resource "aws_s3_bucket" "bucket-tf" {
   }
 }
 output "tf_example_public_ip" {
-  value = var.ec2_name.public_ip
+  value = aws_instance.ec2-variable.public_dns
 }
 output "tf_example_s3_meta" {
   value = aws_s3_bucket.bucket-tf.region

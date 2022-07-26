@@ -21,29 +21,46 @@ provider "aws" {
 #     "Name" = "created-by-tf"
 #   }
 # } 
-resource "aws_instance" "tf-ec2" {
-  # ami           = "ami-0ed9277fb7eb570c9"
-  ami           = "ami-042e8287309f5df03"
-  instance_type = "t2.micro"
-  key_name      = "firstkey" # write your pem file without .pem extension>
+
+variable "ec2_name" {
+  default = "variable-ec2"
+}
+
+variable "ec2_type" {
+  default = "t2.micro"
+}
+
+variable "ec2_ami" {
+  default = "ami-0742b4e673072066f"
+}
+resource "aws_instance" "ec2-variable" {
+  ami = var.ec2_ami
+  instance_type = var.ec2_type
+  key_name = "firstkey"
   tags = {
-    # "Name" = "tf-ec2"
-    Name = "tf-ec2-ubuntu"
+    "Name" = "${var.ec2_name}-instance"
   }
 }
+variable "s3_bucket_name" {
+  default = "hasan-s3-variable"
+}
 resource "aws_s3_bucket" "bucket-tf" {
-  bucket = "hasan-1461-tf-new"
+  bucket = "${var.s3_bucket_name}-bucket"
 
   tags = {
-    Name = "hasan-1461-tf"
+    Name = "${var.s3_bucket_name}-bucket"
   }
 }
 output "tf_example_public_ip" {
-  value = aws_instance.tf-ec2.public_ip
+  value = var.ec2_name.public_ip
 }
 output "tf_example_s3_meta" {
   value = aws_s3_bucket.bucket-tf.region
 }
 output "tf_example_private_ip" {
-  value = aws_instance.tf-ec2.private_ip
+  value = aws_instance.ec2-variable.private_ip
 }
+output "variable-s3" {
+  value = aws_s3_bucket.bucket-tf[*]
+}
+

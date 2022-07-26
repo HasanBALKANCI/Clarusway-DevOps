@@ -33,34 +33,53 @@ provider "aws" {
 # variable "ec2_ami" {
 #   default = "ami-0742b4e673072066f"
 # }
-resource "aws_instance" "ec2-variable" {
-  ami = var.ec2_ami
+locals {
+  mytag = "haasan-local-name"
+}
+
+resource "aws_instance" "tf-ec2" {
+  ami           = var.ec2_ami
   instance_type = var.ec2_type
-  key_name = "firstkey"
+  key_name      = "firstkey"
   tags = {
-    "Name" = "${var.ec2_name}-instance"
+    Name = "${local.mytag}-come from locals"
   }
 }
+
+resource "aws_s3_bucket" "tf-s3" {
+  bucket = var.s3_bucket_name
+  tags = {
+    Name = "${local.mytag}-come from locals"
+  }
+}
+# resource "aws_instance" "ec2-variable" {
+#   ami = var.ec2_ami
+#   instance_type = var.ec2_type
+#   key_name = "firstkey"
+#   tags = {
+#     "Name" = "${var.ec2_name}-instance"
+#   }
+# }
 variable "s3_bucket_name" {
   default = "hasan-s3-variable"
 }
-resource "aws_s3_bucket" "bucket-tf" {
-  bucket = "${var.s3_bucket_name}-bucket"
+# resource "aws_s3_bucket" "bucket-tf" {
+#   bucket = "${var.s3_bucket_name}-bucket"
 
-  tags = {
-    Name = "${var.s3_bucket_name}-bucket"
-  }
-}
+#   tags = {
+#     Name = "${var.s3_bucket_name}-bucket"
+#   }
+# }
 output "tf_example_public_ip" {
-  value = aws_instance.ec2-variable.public_dns
+  value = aws_instance.tf-ec2.public_dns
 }
 output "tf_example_s3_meta" {
-  value = aws_s3_bucket.bucket-tf.region
+  value = aws_s3_bucket.tf-s3.region
 }
 output "tf_example_private_ip" {
-  value = aws_instance.ec2-variable.private_ip
+  value = aws_instance.tf-ec2.private_ip
 }
 output "variable-s3" {
-  value = aws_s3_bucket.bucket-tf[*]
+  value = aws_s3_bucket.tf-s3[*]
 }
 

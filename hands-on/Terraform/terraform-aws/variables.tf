@@ -12,3 +12,6 @@ variable "ec2_ami" {
 # variable "s3_bucket_name" {
 #   default = "hasan-s3-variable"
 # }
+variable "num_of_buckets" {
+  default = 2
+}

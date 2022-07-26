@@ -21,3 +21,10 @@ resource "aws_instance" "tf-ec2" {
     "Name" = "created-by-tf"
   }
 }
+resource "aws_s3_bucket" "bucket-tf" {
+  bucket = "hasan-1461-tf"
+
+  tags = {
+    Name        = "hasan-1461-tf"
+  }
+}

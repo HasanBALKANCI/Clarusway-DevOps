@@ -6,7 +6,7 @@ resource "aws_instance" "tfmyec2" {
   ami = lookup(var.myami, terraform.workspace)
   instance_type = "${terraform.workspace == "dev" ? "t3a.medium" : "t2.micro"}"
   count = "${terraform.workspace == "prod" ? 3 : 1}"
-  key_name = "<your-pem-file>"
+  key_name = "firstkey"
   tags = {
     Name = "${terraform.workspace}-server"
   }

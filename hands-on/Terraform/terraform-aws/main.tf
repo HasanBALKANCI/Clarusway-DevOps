@@ -6,13 +6,32 @@ terraform {
     }
   }
 }
-
+backend "s3" {
+    bucket = "tf-remote-s3-bucket-hasan"
+    key = "env/dev/tf-remote-backend.tfstate"
+    region = "us-east-1"
+    dynamodb_table = "tf-s3-app-lock-hasan"
+    encrypt = true
+}
 provider "aws" {
   region = "us-east-1"
+}
+
+
+
+
+
+
+
+output "s3-arn-1" {
+  value = aws_s3_bucket.tf-s3["fredo"].arn
+  }
+
+
   # access_key = "my-access-key"
   # secret_key = "my-secret-key"
   ## profile = "my-profile"
-}
+
 
 # resource "aws_instance" "tf-ec2" {
 #   ami           = "ami-0c02fb55956c7d316"

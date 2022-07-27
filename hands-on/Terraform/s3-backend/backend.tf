@@ -24,7 +24,7 @@ resource "aws_s3_bucket_versioning" "versioning_backend_s3" {
 }
 resource "aws_dynamodb_table" "tf-remote-state-lock" {
   hash_key = "LockID"
-  name     = "tf-s3-app-lock"
+  name     = "tf-s3-app-lock-hasan"
   attribute {
     name = "LockID"
     type = "S"

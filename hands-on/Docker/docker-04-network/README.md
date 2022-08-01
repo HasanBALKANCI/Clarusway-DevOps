@@ -61,14 +61,15 @@ docker network ls
 - Run two `alpine` containers with interactive shell, in detached mode, name the container as `clarus1st` and `clarus2nd`, and add command to run alpine shell. Here, explain what the detached mode means.
 
 ```bash
-docker container run -dit --name clarus1st alpine ash
+docker container run -dit --name clarus1st alpine ash # -dit detach modda calis (direk baglanma) terminalde acmaz, interaktif calis (calismazsan bile cikma), t(terminalin icinde yaptiklarimi bana göster) 
 docker container run -dit --name clarus2nd alpine ash
 ```
+# docker images (yuklu image leri gosterir)
 
 - Show the list of running containers on Docker machine.
 
 ```bash
-docker ps
+docker ps #  docker container ls
 ```
 
 - Show the details of `bridge` network, and explain properties (subnet, ips) and why containers are in the default network bridge.
@@ -87,6 +88,7 @@ docker container inspect clarus2nd | grep IPAddress
 
 ```bash
 docker container attach clarus1st
+# docker container exec 
 ```
 
 - Show the details of network interface configuration of `clarus1st` container.
@@ -112,7 +114,7 @@ ping -c 4 google.com
 - Ping `clarus2nd `container by its IP four times to show the connection.
 
 ```bash
-ping -c 4 172.17.0.3
+ping -c 4 172.17.0.3 # dns cozemez clarus2nd desen cozemez. ping atamaz.
 ```
 
 - Try to ping `clarus2nd `container by its name, should face with bad address. Explain why failed (due to default bridge configuration not works with container names)
@@ -121,13 +123,13 @@ ping -c 4 172.17.0.3
 ping -c 4 clarus2nd
 ```
 
-- Disconnect from `clarus1st` without stopping it (CTRL + p + q).
+- Disconnect from `clarus1st` without stopping it (CTRL + a + d).
 
 - Stop and delete the containers
 
 ```bash
 docker container stop clarus1st clarus2nd
-docker container rm clarus1st clarus2nd
+docker container rm clarus1st clarus2nd # docker rm $(docker ps -a -q)
 ```
 
 ## Part 3 - User-defined Network Bridge in Docker
@@ -155,9 +157,9 @@ docker network inspect clarusnet
 ```bash
 docker container run -dit --network clarusnet --name clarus1st alpine ash
 docker container run -dit --network clarusnet --name clarus2nd alpine ash
-docker container run -dit --name clarus3rd alpine ash
+docker container run -dit --name clarus3rd alpine ash # otomatik default network e atar
 docker container run -dit --name clarus4th alpine ash
-docker network connect clarusnet clarus4th
+docker network connect clarusnet clarus4th # hem default hem de clarusnet e baglanmis oldu
 ```
 
 - List all running containers and show there up and running.
@@ -213,7 +215,7 @@ docker container attach clarus4th
 ```
 
 - Ping `clarus2nd` and `clarus1st` container by its name, ping `clarus3rd` container with its IP. Explain why used IP, instead of name.
-
+# ayni network icerisinde isim ve ip le atar, paylasimli networkde sadece ip ile ping atilir, farkli networkler arasi iletisim kesinlikle olmaz. isoledir.
 ```bash
 ping -c 4 clarus1st
 ping -c 4 clarus2nd
@@ -238,7 +240,7 @@ docker network rm clarusnet
 - Run a `nginx` web server, name the container as `ng`, and bind the web server to host port 8080 command to run alpine shell. Explain `--rm` and `-p` flags and port binding.
 
 ```bash
-docker container run --rm -d -p 8080:80 --name ng nginx
+docker container run --rm -d -p 8080:80 --name ng nginx # --rm cikinca containere otomatik sil. -p public.
 ```
 
 - Add a security rule for protocol HTTP port 8080 and show Nginx Web Server is running on Docker Machine.
@@ -309,3 +311,6 @@ ping -c 4 google.com
 ```
 
 - Exit from container `nullcontainer`, should be removed automatically due to `--rm` flag.
+# docker images prune 
+# docker rmi nginx alpine
+# iki komutta images leri silmek icin kullanilabilir.

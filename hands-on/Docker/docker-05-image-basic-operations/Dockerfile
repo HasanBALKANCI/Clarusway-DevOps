@@ -5,4 +5,4 @@ RUN apt-get install python3-pip -y
 RUN pip3 install flask
 COPY . /app
 WORKDIR /app
-CMD python3 ./welcome.py # containerda default calistirilacak uygulamayi belirtir
+CMD python3 ./welcome.py # containerda default calistirilacak uygulamayi belirtir. Entrypoint kullanilirsa komutu manupule edebiliriz.

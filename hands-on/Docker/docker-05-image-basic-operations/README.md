@@ -142,13 +142,13 @@ if __name__ == "__main__":
 
 ```Dockerfile
 FROM ubuntu
-RUN apt-get update -y
-RUN apt-get install python3 -y
-RUN apt-get install python3-pip -y
-RUN pip3 install flask
-COPY . /app
-WORKDIR /app
-CMD python3 ./welcome.py
+RUN apt-get update -y # her komut icin bir layer olusturur.
+RUN apt-get install python3 -y # ikinci layer
+RUN apt-get install python3-pip -y # ucuncu layer
+RUN pip3 install flask # dorduncu layer
+COPY . /app # bulundugun klasordeki tum dosyalari, filelari app icine kopyala, app yoksa olustur
+WORKDIR /app # cd gibi calisir. app in icine git
+CMD python3 ./welcome.py # cmd kontainer olustuktan sonra python3 ile bulunan klasorun altindaki welcome.py calistir. 
 ```
 
 - Build Docker image from Dockerfile locally, tag it as `<Your_Docker_Hub_Account_Name>/<Your_Image_Name>:<Tag>` and explain steps of building. Note that repo name is the combination of `<Your_Docker_Hub_Account_Name>/<Your_Image_Name>`.

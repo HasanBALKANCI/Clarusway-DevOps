@@ -154,7 +154,7 @@ CMD python3 ./welcome.py # cmd kontainer olustuktan sonra python3 ile bulunan kl
 - Build Docker image from Dockerfile locally, tag it as `<Your_Docker_Hub_Account_Name>/<Your_Image_Name>:<Tag>` and explain steps of building. Note that repo name is the combination of `<Your_Docker_Hub_Account_Name>/<Your_Image_Name>`.
 
 ```bash
-docker build -t "clarusway/flask-app:1.0" .
+docker build -t "clarusway/flask-app:1.0" . # -t tag ver, . Dockerfile icin ihtiyac duydugum herhangibir dosya varsa bu dzizinde ara.. eger baska yerde doya varsa path vermek lazim.
 docker image ls
 ```
 

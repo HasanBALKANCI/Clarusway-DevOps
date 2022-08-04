@@ -122,12 +122,12 @@ echo '
 FROM python:3.7-alpine
 WORKDIR /code
 ENV FLASK_APP app.py
-ENV FLASK_RUN_HOST 0.0.0.0
-RUN apk add --no-cache gcc musl-dev linux-headers
+ENV FLASK_RUN_HOST 0.0.0.0 # heryerde calis
+RUN apk add --no-cache gcc musl-dev linux-headers # hafizada tutma, 
 COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
-EXPOSE 5000
-COPY . .
+RUN pip install -r requirements.txt # ihtiyaclar -r txt dosyasindan al
+EXPOSE 5000 # sadece bilgi verir. baska porttada calisabilir. compose ederken belirtmek gerekir, port mapping.
+COPY . . # bulundugun klasore yukarda olusturdugun /code klasorune kopyala
 CMD ["flask", "run"]
 ' > Dockerfile
 ```
@@ -148,12 +148,12 @@ The redis service uses a public Redis image pulled from the Docker Hub registry.
 echo '
 version: "3"
 services:
-  web:
-    build: .
+  web: # birinci container -p 5000
+    build: . # containeri bulundugun konumdaki dockerfiledan bulid yap
     ports:
       - "5000:5000"
-  redis:
-    image: "redis:alpine"
+  redis: # ikinci container -p 6359 tanimli bridge de ikiside olacak yaml da intension önemli.
+    image: "redis:alpine" # redis databasei alpine imagedan kullan.
 ' > docker-compose.yml
 ```
 

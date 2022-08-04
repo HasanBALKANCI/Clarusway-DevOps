@@ -246,8 +246,8 @@ if __name__== '__main__':
 - Create another file called `requirements.txt` in your project folder, add the followings as package list.
 
 ```bash
-flask
-flask-mysql
+'flask
+flask-mysql'
 ```
 
 - Create a Dockerfile with followings.

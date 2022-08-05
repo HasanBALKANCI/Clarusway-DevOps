@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+    database: # to-do-app.py deki isimle ayni olmali. containerin ismi ayni zamanda databasein hostu
+        image: mysql:5.7 # devoloper lar hangi ver kullanilacagini belirtir
+        environment:
+            MYSQL_ROOT_PASSWORD: R1234r
+            MYSQL_DATABASE: todo_db
+            MYSQL_USER: clarusway
+            MYSQL_PASSWORD: Clarusway_1
+        networks:
+            - clarusnet
+    myapp:
+        build: .
+        restart: always
+        depends_on:
+            - database
+        ports:
+            - "80:80"
+        networks:
+            - clarusnet
+
+networks:
+    clarusnet:
+        driver: bridge

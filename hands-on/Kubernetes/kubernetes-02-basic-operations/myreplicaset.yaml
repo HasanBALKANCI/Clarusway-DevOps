@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
-  name: nginx-rs
+  name: nginx
   labels:
     enviroment: dev
 spec:
@@ -19,5 +19,5 @@ spec:
       - name: mynginx
         image: nginx
         ports:
-          containerPort:  80
+        - containerPort:  80
   

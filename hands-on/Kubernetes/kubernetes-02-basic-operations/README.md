@@ -31,6 +31,8 @@ At the end of the this hands-on training, students will be able to;
 
 - Check if Kubernetes is running and nodes are ready.
 
+alias k=kubectl
+
 ```bash
 kubectl cluster-info
 kubectl get node

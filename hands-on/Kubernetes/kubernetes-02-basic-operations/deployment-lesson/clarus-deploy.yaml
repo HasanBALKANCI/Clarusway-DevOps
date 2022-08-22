@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  clarus-deploy
+  labels:
+    app:  container-info
+  annotations:
+    kubernetes.io/change-cause: deploy/
+    clarus-deploy is set as container-info=clarusway/
+    container-info:1.0
+    
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: container-info
+  template:
+    metadata:
+      labels:
+        app:  clarus-info
+    spec:
+      # initContainers:
+        # Init containers are exactly like regular containers, except:
+          # - Init containers always run to completion.
+          # - Each init container must complete successfully before the next one starts.
+      containers:
+      - name:  clarus-info
+        image:  clarusway/container-info:1.0
+        ports:
+        - containerPort:  80
+    

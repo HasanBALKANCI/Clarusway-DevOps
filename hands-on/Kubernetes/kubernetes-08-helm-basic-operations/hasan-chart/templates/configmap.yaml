@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: clarus-chart-config
 data:
-  myvalue: "Hello World"
+  myvalue: "clarus-chart configmap example"
+  course: {{ .Values.course }}

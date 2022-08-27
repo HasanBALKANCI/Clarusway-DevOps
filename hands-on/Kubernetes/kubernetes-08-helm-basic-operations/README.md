@@ -171,6 +171,7 @@ data:
 - Install the clarus-chart.
 
 ```bash
+cd ..
 helm install helm-demo clarus-chart
 ```
 

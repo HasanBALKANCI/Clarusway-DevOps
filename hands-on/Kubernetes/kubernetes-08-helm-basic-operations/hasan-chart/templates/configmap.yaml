@@ -1,0 +1,6 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clarus-chart-config
+data:
+  myvalue: "Hello World"

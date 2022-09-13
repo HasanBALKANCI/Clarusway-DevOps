@@ -69,7 +69,7 @@ resource "aws_iam_instance_profile" "ec2_profile" {
 resource "aws_instance" "ecr-instance" {
   ami                  = "ami-02e136e904f3da870"
   instance_type        = "t2.micro"
-  key_name        = "davidskey" # you need to change this line
+  key_name        = "firstkey" # you need to change this line
   security_groups = ["ec2-sec-gr"]
   tags = {
     Name = "ec2-ecr-instance"
@@ -86,7 +86,7 @@ resource "aws_instance" "ecr-instance" {
           -o /usr/local/bin/docker-compose
           chmod +x /usr/local/bin/docker-compose
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-          unzip awscliv2.zip
+          unzip awscliv2.zip 
           ./aws/install
           EOF
 
@@ -101,5 +101,5 @@ output "ec2-public-ip" {
 }
 
 output "ssh-connection" {
-  value = "ssh -i ~/.ssh/davidskey.pem ec2-user@${aws_instance.ecr-instance.public_ip}"
+  value = "ssh -i /Users/hasan/firstkey.pem ec2-user@${aws_instance.ecr-instance.public_ip}"
 }

@@ -295,7 +295,7 @@ docker run -dp 80:3000 xxxxxxxxxxxxx.dkr.ecr.us-east-1.amazonaws.com/student2-re
 
 ```bash
 aws ecr batch-delete-image \
-      --repository-name student2-repo/todo-app \
+      --repository-name student1-repo/todo-app \
       --image-ids imageTag=latest
 ```
 
@@ -303,7 +303,7 @@ aws ecr batch-delete-image \
 
 ```bash
 aws ecr delete-repository \
-      --repository-name student2-repo/todo-app \
+      --repository-name student1-repo/todo-app \
       --force
 ```
 
